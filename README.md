@@ -8,10 +8,14 @@ in progress...
 
 **capacity's**
 	- [ ] multi-threads
+	
 	- [ ] generator of exhaustive string combinaisons
+	
 	- [ ] data-mining
 
 **usage exemple**
 	- [ ] hide better ssh keys
+	
 	- [ ] generate great password to infinite passwords (WARNING: seeded random) 
+	
 	- [ ] simple exemple step by step
