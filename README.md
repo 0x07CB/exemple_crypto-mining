@@ -7,15 +7,15 @@ exemple of cryptomining with the SHA-152
 in progress...
 
 **capacity's**
-	- [ ] multi-threads
+- [ ] multi-threads
 	
-	- [ ] generator of exhaustive string combinaisons
+- [ ] generator of exhaustive string combinaisons
 	
-	- [ ] data-mining
+- [ ] data-mining
 
 **usage exemple**
-	- [ ] hide better ssh keys
+- [ ] hide better ssh keys
 	
-	- [ ] generate great password to infinite passwords (WARNING: seeded random) 
+- [ ] generate great password to infinite passwords (WARNING: seeded random) 
 	
-	- [ ] simple exemple step by step
+- [ ] simple exemple step by step
