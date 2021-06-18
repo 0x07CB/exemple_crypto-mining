@@ -55,7 +55,7 @@ informations=dm.mining()
 with open(args.filepath,'w+b') as f:
     f.write(json.dumps(informations,indent=4).encode())
     f.close()
-if not quiet:
+if not args.quiet:
     print ("\n\n\nvalue: {}\niterations: {}\nsize_block_validation: {}\ncharacter_repeted: {}".format(informations["value"],informations["iterations"],informations["size_valide_block"],informations["chrepet"]))
 
 
