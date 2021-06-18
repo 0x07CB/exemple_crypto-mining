@@ -11,7 +11,7 @@ in progress...
 	
 - [ ] generator of exhaustive string combinaisons
 	
-- [ ] data-mining
+- [x] data-mining
 
 **usage exemple**
 - [ ] hide better ssh keys
