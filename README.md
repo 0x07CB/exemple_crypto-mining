@@ -18,4 +18,15 @@ in progress...
 	
 - [ ] generate great password to infinite passwords (WARNING: seeded random) 
 	
-- [ ] simple exemple step by step
+- [x] simple exemple step by step
+
+try that and learn 
+
+please read the source code
+
+don’t be afraid to fork ;)
+
+
+```
+python3 dataMiner.py out.json "blabla$" -s 4
+```
