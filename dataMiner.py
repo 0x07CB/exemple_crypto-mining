@@ -4,7 +4,7 @@ import hashlib
 import base64
 from multiprocessing import Process, Pool
 import argparse
-
+import json
 class exhaustivitatatator(object):
     def __init__(self,size=64):
         self.size = size
@@ -30,15 +30,32 @@ class dataMiner(object):
         for i in range(0,tries):
             self.salt.next()
             if self.hashfunc()[:self.size_block_validation] == chrepet * self.size_block_validation:
-                return i
+                return { "value": self.hashfunc()[self.size_block_validation:], "size_valide_block": self.size_block_validation, "chrepet":chrepet, "iterations": i } 
     def set_data(self,data):
         self.data = data
     def hashfunc(self):
         return hashlib.sha3_256("".join(self.salt.get()+list(self.data)).encode()).hexdigest()
 
-dm = dataMiner()
 
-dm.set_data("test blabla")
-print (dm.mining())
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-s","--size",type=int, help="size of valid block repetitions")
+parser.add_argument("-q","--quiet",action="store_true", help="no verbosity")
+parser.add_argument("filepath", help="json output file")
+parser.add_argument("data", help="data to mine")
+args = parser.parse_args()
+
+if args.size:
+    size_=args.size
+else:
+    size_=4
+dm = dataMiner(size_)
+dm.set_data(args.data)
+informations=dm.mining()
+with open(args.filepath,'w+b') as f:
+    f.write(json.dumps(informations,indent=4).encode())
+    f.close()
+if not quiet:
+    print ("\n\n\nvalue: {}\niterations: {}\nsize_block_validation: {}\ncharacter_repeted: {}".format(informations["value"],informations["iterations"],informations["size_valide_block"],informations["chrepet"]))
 
 
