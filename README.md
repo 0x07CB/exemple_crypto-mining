@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/400e9831d4a349d88dfa9212bee6554d)](https://app.codacy.com/gh/0x07CB/exemple_crypto-mining?utm_source=github.com&utm_medium=referral&utm_content=0x07CB/exemple_crypto-mining&utm_campaign=Badge_Grade_Settings)
 
-exemple of cryptomining with the SHA-152
+exemple of cryptomining with the SHA3-256
 
 in progress...
 
