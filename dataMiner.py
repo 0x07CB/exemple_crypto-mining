@@ -1,5 +1,22 @@
 #!/usr/bin/python3
 #coding: utf-8
+parser = argparse.ArgumentParser()
+parser.add_argument("-s", "--size", type=int, 
+        help="size of valid block repetitions")
+parser.add_argument("-q", "--quiet", action="store_true", 
+        help="no verbosity")
+parser.add_argument("-H" ,"--set-hash-function", type=str,
+        default="sha512",
+        help="set the algorithm of hash function (used from hashlib).") 
+parser.add_argument("filepath", help="json output file.")
+parser.add_argument("data", help="data to mine.")
+args = parser.parse_args()
+
+if args.size:
+    size_=args.size
+else:
+    size_=4
+
 import os
 import hashlib
 import base64
