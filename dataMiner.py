@@ -26,6 +26,7 @@ class exhaustivitatatator(object):
 class dataMiner(object):
     def __init__(self,size_block_validation=4):
         self.salt = exhaustivitatatator()
+        self.hash_function = "sha512"
         self.size_block_validation = size_block_validation
     def mining(self,tries=1000000,chrepet="0"):
         for i in range(0,tries):
@@ -35,22 +36,31 @@ class dataMiner(object):
     def set_data(self,data):
         self.data = data
     def hashfunc(self):
-        return hashlib.sha3_256("".join(self.salt.get()+list(self.data)).encode()).hexdigest()
+        hashlib.new(self.hash_function)
+        hashlib.update("".join(self.salt.get()+list(self.data)).encode())
+        return hashlib.hexdigest()
 
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-s","--size",type=int, help="size of valid block repetitions")
-parser.add_argument("-q","--quiet",action="store_true", help="no verbosity")
-parser.add_argument("filepath", help="json output file")
-parser.add_argument("data", help="data to mine")
+parser.add_argument("-s", "--size", type=int, 
+        help="size of valid block repetitions")
+parser.add_argument("-q", "--quiet", action="store_true", 
+        help="no verbosity")
+parser.add_argument("-H" ,"--set-hash-function", type=str,
+        default="sha512",
+        help="set the algorithm of hash function (used from hashlib).") 
+parser.add_argument("filepath", help="json output file.")
+parser.add_argument("data", help="data to mine.")
 args = parser.parse_args()
 
 if args.size:
     size_=args.size
 else:
     size_=4
-dm = dataMiner(size_)
+
+# =====================
+dm = dataMiner(size_,)
 dm.set_data(args.data)
 informations=dm.mining()
 with open(args.filepath,'w+b') as f:
