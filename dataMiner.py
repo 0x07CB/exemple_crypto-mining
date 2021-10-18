@@ -2,7 +2,7 @@
 #coding: utf-8
 __VERSION__ = "0.1.2"
 
-
+import argparse 
 parser = argparse.ArgumentParser("dataMining.py (v{version})\n-------------\ndataMining.py is an program I have write to do an exemple code of the popular concept in crypto-monetic (for an neophyte, yeah just cryptomoney is a lot of things and that just one little piece of the complex innovation of internet.).\n\nMade just for fun and to explain this concept to an nurse.\n...And now I fix this and made preparation to use for and little more biggest project...(Probably an library to the pipy deposit of python3 library's you know...".format(
     version = __VERSION__
     ))
@@ -14,8 +14,8 @@ parser.add_argument("-q", "--quiet", action="store_true",
 parser.add_argument("-H" ,"--set-hash-function", type=str,
         default="sha512",
         help="set the algorithm of hash function (used from hashlib).") 
-parser.add_argument("filepath", help="json output file.")
-parser.add_argument("data", help="data to mine.")
+parser.add_argument("filepath", type=str, help="json output file.")
+parser.add_argument("data", type=str, required=False, help="data to mine.")
 args = parser.parse_args()
 
 if args.size:
@@ -27,7 +27,6 @@ import os
 import hashlib
 import base64
 from multiprocessing import Process, Pool
-import argparse
 import json
 class exhaustivitatatator(object):
     def __init__(self,size=64):
@@ -56,8 +55,15 @@ class dataMiner(object):
             self.salt.next()
             if self.hashfunc()[:self.size_block_validation] == chrepet * self.size_block_validation:
                 return { "value": self.hashfunc()[self.size_block_validation:], "size_valide_block": self.size_block_validation, "chrepet":chrepet, "iterations": i } 
-    def set_data(self,data):
+    def setDataFromArg(self,data):
         self.data = data
+    def setDataFromFile(self,filepath):
+        with open(filepath, 'rb') as f:
+            self.data = f.read().decode()
+            f.close()
+    def setDataFromFileWithSaltedArg(self,filepath,data):
+        self.setDataFromFile(filepath)
+        self.data = self.data + data
     def hashfunc(self):
         hashlib.new(self.hash_function)
         hashlib.update("".join(self.salt.get()+list(self.data)).encode())
