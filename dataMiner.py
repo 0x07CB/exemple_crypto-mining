@@ -69,9 +69,24 @@ class dataMiner(object):
         hashlib.update("".join(self.salt.get()+list(self.data)).encode())
         return hashlib.hexdigest()
 
+def callErrorShowFunction(TYPE_ERR_DESC):
+    print("Error: {typeErr}".format(
+        typeErr = TYPE_ERR_DESC
+        ))
+    exit(-1)
+
+
 # =====================
 dm = dataMiner(args.set_hash_function,size_)
-dm.set_data(args.data)
+if (args.filepath) and (args.data):
+    dm.setDataFromFileWithSaltedArg(args.filepath, args.data)
+elif args.filepath:
+    dm.setDataFromFile(args.filepath)
+elif args.data:
+    dm.setDataFromArg(args.data)
+else:
+    dm.callErrorShowFunction("NULL DATA FROM INPUT")
+
 informations=dm.mining()
 with open(args.filepath,'w+b') as f:
     f.write(json.dumps(informations,indent=4).encode())
