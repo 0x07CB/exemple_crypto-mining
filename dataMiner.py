@@ -1,12 +1,35 @@
 #!/usr/bin/python3
 #coding: utf-8
-__VERSION__ = "0.1.2"
 
-import argparse 
+# Need to keep in mind that is not automated so... 
+# U need to change manually this string for have an correct version number 
+__VERSION__ = "0.1.3"
+
+# dataMiner.py
+# Author: Rick Sanchez [ D-634 ]
+
+
+# THIS CODE IS ... SIMPLE...
+# GUIDE (to read fast): 
+#
+# Library import start here and, arg parsing just after,
+# Class after the parsing and function. 
+
+# ============ LIB ============
+import os, hashlib, json, arparse
+#from base64 import b64encode as benc
+#from base64 import b64decode as bdec
+#from multiprocessing import Process, Pool
+
+# ============ ARG ============
 parser = argparse.ArgumentParser("dataMining.py (v{version})\n-------------\ndataMining.py is an program I have write to do an exemple code of the popular concept in crypto-monetic (for an neophyte, yeah just cryptomoney is a lot of things and that just one little piece of the complex innovation of internet.).\n\nMade just for fun and to explain this concept to an nurse.\n...And now I fix this and made preparation to use for and little more biggest project...(Probably an library to the pipy deposit of python3 library's you know...".format(
     version = __VERSION__
     ))
 
+# ===============ARG================
+# ============ PARSING =============
+
+# optionnals args (by default defined optionnals)
 parser.add_argument("-s", "--size", type=int, 
         help="size of valid block repetitions")
 parser.add_argument("-q", "--quiet", action="store_true", 
@@ -14,20 +37,14 @@ parser.add_argument("-q", "--quiet", action="store_true",
 parser.add_argument("-H" ,"--set-hash-function", type=str,
         default="sha512",
         help="set the algorithm of hash function (used from hashlib).") 
+# not optionnals args in term client
 parser.add_argument("filepath", type=str, help="json output file.")
 parser.add_argument("data", type=str, required=False, help="data to mine.")
+# execute the parsing function and get the object with results of args in input inside...
 args = parser.parse_args()
 
-if args.size:
-    size_=args.size
-else:
-    size_=4
-
-import os
-import hashlib
-import base64
-from multiprocessing import Process, Pool
-import json
+# ============= CLASS =============
+#
 class exhaustivitatatator(object):
     def __init__(self,size=64):
         self.size = size
@@ -44,7 +61,8 @@ class exhaustivitatatator(object):
         self.value = chr(0) * self.size
     def get(self):
         return self.value
-    
+
+#
 class dataMiner(object):
     def __init__(self,hash_function,size_block_validation=4):
         self.salt = exhaustivitatatator()
@@ -69,14 +87,22 @@ class dataMiner(object):
         hashlib.update("".join(self.salt.get()+list(self.data)).encode())
         return hashlib.hexdigest()
 
+# ============= FUNCTIONS  =============
 def callErrorShowFunction(TYPE_ERR_DESC):
     print("Error: {typeErr}".format(
         typeErr = TYPE_ERR_DESC
         ))
     exit(-1)
 
-
-# =====================
+# 
+# ============ DEFINE VARS FROM ARGS ============
+#
+# size of valid reccurence (occurence on default at this state)
+if args.size:
+    size_ = args.size
+else:
+    size_ = 4
+# ============ BEGIN OF DATAMINER ===============
 dm = dataMiner(args.set_hash_function,size_)
 if (args.filepath) and (args.data):
     dm.setDataFromFileWithSaltedArg(args.filepath, args.data)
