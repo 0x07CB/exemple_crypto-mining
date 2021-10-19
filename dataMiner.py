@@ -16,7 +16,7 @@ __VERSION__ = "0.1.3"
 # Class after the parsing and function. 
 
 # ============ LIB ============
-import os, hashlib, json, arparse
+import os, argparse, hashlib, json
 #from base64 import b64encode as benc
 #from base64 import b64decode as bdec
 #from multiprocessing import Process, Pool
