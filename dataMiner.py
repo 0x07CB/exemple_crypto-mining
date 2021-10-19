@@ -83,9 +83,9 @@ class dataMiner(object):
         self.setDataFromFile(filepath)
         self.data = self.data + data
     def hashfunc(self):
-        hashlib.new(self.hash_function)
-        hashlib.update("".join(self.salt.get()+list(self.data)).encode())
-        return hashlib.hexdigest()
+        h = hashlib.new(self.hash_function)
+        h.update("".join(self.salt.get()+list(self.data)).encode())
+        return h.hexdigest()
 
     def callErrorShowFunction(TYPE_ERR_DESC):
         print("Error: {typeErr}".format(
