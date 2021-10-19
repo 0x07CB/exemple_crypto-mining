@@ -87,12 +87,11 @@ class dataMiner(object):
         hashlib.update("".join(self.salt.get()+list(self.data)).encode())
         return hashlib.hexdigest()
 
-# ============= FUNCTIONS  =============
-def callErrorShowFunction(TYPE_ERR_DESC):
-    print("Error: {typeErr}".format(
-        typeErr = TYPE_ERR_DESC
-        ))
-    exit(-1)
+    def callErrorShowFunction(TYPE_ERR_DESC):
+        print("Error: {typeErr}".format(
+            typeErr = TYPE_ERR_DESC
+            ))
+        exit(-1)
 
 # 
 # ============ DEFINE VARS FROM ARGS ============
