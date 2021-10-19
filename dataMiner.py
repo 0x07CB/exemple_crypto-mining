@@ -38,8 +38,8 @@ parser.add_argument("-H" ,"--set-hash-function", type=str,
         default="sha512",
         help="set the algorithm of hash function (used from hashlib).") 
 # not optionnals args in term client
-parser.add_argument("filepath", type=str, help="json output file.")
-parser.add_argument("data", type=str, required=False, help="data to mine.")
+parser.add_argument("-f", "--filepath", type=str, help="json output file.")
+parser.add_argument("-d", "--data", type=str, help="data to mine.")
 # execute the parsing function and get the object with results of args in input inside...
 args = parser.parse_args()
 
