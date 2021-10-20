@@ -3,7 +3,7 @@
 
 # Need to keep in mind that is not automated so... 
 # U need to change manually this string for have an correct version number 
-__VERSION__ = "0.1.3"
+__VERSION__ = "0.1.5"
 
 # dataMiner.py
 # Author: Rick Sanchez [ D-634 ]
