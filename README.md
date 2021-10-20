@@ -33,7 +33,7 @@ Documentation write is later...in progress...
 
 - [x] arg to set the hashing algorithm
 
-- [ ] can hash an file
+- [x] can hash an file
 
 - [ ] can set the limit of data lenght for hashing function from file
 

@@ -3,7 +3,7 @@
 
 # Need to keep in mind that is not automated so... 
 # U need to change manually this string for have an correct version number 
-__VERSION__ = "0.1.6"
+__VERSION__ = "0.2.1"
 
 # dataMiner.py
 # Author: Rick Sanchez [ D-634 ]
@@ -42,6 +42,8 @@ parser.add_argument("-f", "--filepath", type=str, help="data input file.")
 parser.add_argument("-d", "--data", type=str, help="data to mine.")
 parser.add_argument("-fjo", "--filepath-output-json", type=str,
         help="json output file (of results)")
+parser.add_argument("-lim", "--input-limit", type=int,
+        help="set an data input limit.")
 # execute the parsing function and get the object with results of args in input inside...
 args = parser.parse_args()
 
@@ -75,15 +77,23 @@ class dataMiner(object):
             self.salt.next()
             if self.hashfunc()[:self.size_block_validation] == chrepet * self.size_block_validation:
                 return { "value": self.hashfunc()[self.size_block_validation:], "size_valide_block": self.size_block_validation, "chrepet":chrepet, "iterations": i } 
+    def dataLimitation(self):
+        if args.input_limit:
+            if len(self.data) > args.input_limit:
+                self.callErrorShowFunction("DATA LIMIT")
+                exit(-1)
     def setDataFromArg(self,data):
         self.data = data
+        self.dataLimitation()
     def setDataFromFile(self,filepath):
         with open(filepath, 'rb') as f:
             self.data = f.read().decode()
             f.close()
+        self.dataLimitation()
     def setDataFromFileWithSaltedArg(self,filepath,data):
         self.setDataFromFile(filepath)
         self.data = self.data + data
+        self.dataLimitation()
     def hashfunc(self):
         h = hashlib.new(self.hash_function)
         h.update("".join(self.salt.get()+list(self.data)).encode())
