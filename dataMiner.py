@@ -38,8 +38,10 @@ parser.add_argument("-H" ,"--set-hash-function", type=str,
         default="sha512",
         help="set the algorithm of hash function (used from hashlib).") 
 # not optionnals args in term client
-parser.add_argument("-f", "--filepath", type=str, help="json output file.")
+parser.add_argument("-f", "--filepath", type=str, help="data input file.")
 parser.add_argument("-d", "--data", type=str, help="data to mine.")
+parser.add_argument("-fjo", "--filepath-output-json", type=str,
+        help="json output file (of results)")
 # execute the parsing function and get the object with results of args in input inside...
 args = parser.parse_args()
 
@@ -87,7 +89,7 @@ class dataMiner(object):
         h.update("".join(self.salt.get()+list(self.data)).encode())
         return h.hexdigest()
 
-    def callErrorShowFunction(TYPE_ERR_DESC):
+    def callErrorShowFunction(self, TYPE_ERR_DESC):
         print("Error: {typeErr}".format(
             typeErr = TYPE_ERR_DESC
             ))
@@ -111,11 +113,13 @@ elif args.data:
     dm.setDataFromArg(args.data)
 else:
     dm.callErrorShowFunction("NULL DATA FROM INPUT")
-
+#
 informations=dm.mining()
-with open(args.filepath,'w+b') as f:
-    f.write(json.dumps(informations,indent=4).encode())
-    f.close()
+if args.filepath_output_json:
+    with open(args.filepath_output_json,'w+b') as f:
+        f.write(json.dumps(informations,indent=4).encode())
+        f.close()
+#
 if not args.quiet:
     print ("\n\n\nvalue: {}\niterations: {}\nsize_block_validation: {}\ncharacter_repeted: {}".format(informations["value"],informations["iterations"],informations["size_valide_block"],informations["chrepet"]))
 
