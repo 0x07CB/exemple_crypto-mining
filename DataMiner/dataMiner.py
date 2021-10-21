@@ -3,7 +3,7 @@
 
 # Need to keep in mind that is not automated so... 
 # U need to change manually this string for have an correct version number 
-__VERSION__ = "0.2.1"
+__VERSION__ = "0.2.2"
 
 # dataMiner.py
 # Author: Rick Sanchez [ D-634 ]
@@ -42,10 +42,16 @@ parser.add_argument("-f", "--filepath", type=str, help="data input file.")
 parser.add_argument("-d", "--data", type=str, help="data to mine.")
 parser.add_argument("-fjo", "--filepath-output-json", type=str,
         help="json output file (of results)")
-parser.add_argument("-lim", "--input-limit", type=int,
+parser.add_argument("-lim", "--input-limit", type=int, default=0,
         help="set an data input limit.")
 # execute the parsing function and get the object with results of args in input inside...
 args = parser.parse_args()
+# auto-correction args
+# auto-correction '-lim'
+inputLimit = args.input_limit
+if args.input_limit < 0:
+    inputLimit = abs(int(args.input_limit))
+    #
 
 # ============= CLASS =============
 #
@@ -78,8 +84,8 @@ class dataMiner(object):
             if self.hashfunc()[:self.size_block_validation] == chrepet * self.size_block_validation:
                 return { "value": self.hashfunc()[self.size_block_validation:], "size_valide_block": self.size_block_validation, "chrepet":chrepet, "iterations": i } 
     def dataLimitation(self):
-        if args.input_limit:
-            if len(self.data) > args.input_limit:
+        if args.inputLimit:
+            if len(self.data) > inputLimit:
                 self.callErrorShowFunction("DATA LIMIT")
                 exit(-1)
     def setDataFromArg(self,data):
